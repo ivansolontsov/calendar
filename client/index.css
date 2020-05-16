@@ -1,0 +1,176 @@
+body {
+    margin: 0;
+    background-color: #1f2126;
+}
+
+.calendar {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 10px 0px 0px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar__title {
+    font-family: Helvetica, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    font-weight: 100;
+}
+
+.calendar__dates {
+    display: flex;
+}
+
+.calendar__dates-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    margin: 25px 0px 0px 0px;
+    padding: 0;
+}
+
+.calendar__dates-list-item {
+    margin: 5px;
+    color: #fff;
+    font-family: Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #171717;
+    padding: 15px 17px;
+    transition: border .3s;
+    background-color: #1f2126;
+    transition: transform .3s;
+    outline: none;
+}
+
+.calendar__dates-list-item:hover {
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.calendar__dates-list-item:active {
+    border: 2px solid #d64141 !important; 
+    box-shadow: 0 0 20px #d641412e;
+    outline: none;
+}
+
+.calendar__dates-list-item_active {
+    transform: scale(1.02);
+    border: 2px solid #d64141 !important; 
+    box-shadow: 0 0 20px #d641412e;
+    outline: none;
+}
+
+
+.calendar__dates-data {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 27px;
+}
+
+.calendar__dates-day {
+    margin: 0;
+    padding: 5px 0px 0px 0px;
+    font-weight: 100;
+    font-size: 14px;
+    color: grey;
+}
+
+.calendar__schedule-title {
+    font-family: Helvetica, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    margin-top: 25px;
+    align-self: flex-start;
+}
+
+
+.calendar__schedule {
+    margin: 0px 0px 0px 0px;
+    padding: 25px;
+    max-width: 1250px;
+    list-style: none;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.calendar__schedule-item {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #1f2126;
+    border: 4px solid #fff;
+    color: white;
+    padding: 8px 30px;
+    transition: background-color .3s;
+    box-shadow: 0px 0px 0px white;
+    transition: border .3s;
+    border-radius: 25px;
+    outline: none;
+}
+
+.calendar__schedule-item:hover {
+    border: 4px solid #245ccc; 
+    box-shadow: 0 0 20px #d641412e;
+    cursor: pointer;
+}
+
+.calendar__schedule-item_active {
+    transform: scale(1.02);
+    border: 4px solid #d64141 !important; 
+    box-shadow: 0 0 20px #d641412e;
+    outline: none;
+}
+
+.calendar__schedule-item:disabled {
+    cursor: default !important;
+    color: black !important;
+    border: 4px solid #171717 !important; 
+    background-color: #1f2127 !important;
+    box-shadow: none !important;
+}
+
+.calendar__submit {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.calendar__submit-button {
+    width: 150px;
+    height: 35px;
+    background-color: #1f2126;
+    border: 2px solid white;
+    border-radius: 25px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.calendar__submit-button:hover {
+    opacity: .5;
+}
+
+.calendar__submit-button:disabled {
+    cursor: default;
+    opacity: .2;
+}
