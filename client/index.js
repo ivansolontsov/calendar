@@ -106,7 +106,9 @@ class TimeList {
     }
     timeTitle(selectedDate) {
         const timeTitle = document.querySelector('.calendar__schedule-title');
+        const calendarBottom = document.querySelector('.calendar__bottom');
         timeTitle.innerHTML = "";
+        calendarBottom.removeAttribute('style');
         timeTitle.insertAdjacentHTML('afterbegin', `${selectedDate}`);
     }
     createTimeCard(time, selectedDate, status) {
