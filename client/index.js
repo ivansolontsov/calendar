@@ -119,16 +119,17 @@ class TimeList {
         }
         _timeCard.classList.add('calendar__schedule-item');
         _timeCard.insertAdjacentHTML('afterbegin', `
-            ${time}:00
+            ${time}:00 - ${time + 1}:00
         `);
         _timeCard.addEventListener('click', () => {
-            submitConstructor.render();
             this.timeCardActivator(_timeCard);
+            const _timeCardsSelected = document.querySelectorAll('.calendar__schedule-item_active');
+            this.submitChecker(_timeCardsSelected);
         });
         return _timeCard;
     }
     timeListRender(selectedDate) { 
-        this.submitButton.setAttribute('disabled', '');
+        submitButton.setAttribute('disabled', '');
         this.timeContainer.innerHTML = "";
         let _time = 9;
         for (let index = 0; index < 14; index++) {
@@ -149,6 +150,12 @@ class TimeList {
             card.classList.add('calendar__schedule-item_active');
         }
     }
+    submitChecker(cards) {
+        if(cards.length === 0) {
+            submitButton.setAttribute('disabled', '');
+        } else 
+            submitButton.removeAttribute('disabled');
+    }
 }
 
 class Submit {
@@ -156,32 +163,34 @@ class Submit {
         this.submitButton = submitButton;
         this.submitButton.addEventListener('click', () => {
             this.send();
-        })
+        });
     }
     send() {
         const _timeCardsSelected = document.querySelectorAll('.calendar__schedule-item_active');
         const _dateCardsSelected = document.querySelectorAll('.calendar__dates-list-item_active');
         const selectedDate = _dateCardsSelected[0].name;
-    
-        const _hoursSelected = [];
-        _timeCardsSelected.forEach(elem => {
-            _hoursSelected.push(elem.name.substr(11, 2));
-            elem.setAttribute('disabled', '');
-        });
-        _hoursSelected.forEach(elem => {
-            const newReserve = {
-                hour: elem,
-                date: selectedDate
-            }
-            console.log(newReserve);
-            PostApi.sendTime(newReserve).then(res => {
-                reservedTime.push(res);
-            })
-        });
-    }
-    render() {
-        this.submitButton.removeAttribute('style', 'display: none');
-        this.submitButton.removeAttribute('disabled');
+
+        if(_timeCardsSelected.length === 0) {
+            console.log('нет выбранного времени');
+            return false;
+        } else {
+            const _hoursSelected = [];
+            _timeCardsSelected.forEach(elem => {
+                _hoursSelected.push(elem.name.substr(11, 2));
+                elem.setAttribute('disabled', '');
+            });
+            _hoursSelected.forEach(elem => {
+                const newReserve = {
+                    hour: elem,
+                    date: selectedDate
+                }
+                console.log(newReserve);
+                PostApi.sendTime(newReserve).then(res => {
+                    reservedTime.push(res);
+
+                })
+            });
+        }
     }
 }
 
