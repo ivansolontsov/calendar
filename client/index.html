@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <link rel="stylesheet" href="index.css">
   <script src="https://kit.fontawesome.com/2ed51eba6c.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  </script>
   <meta name="description" content="Веб-приложение для поиска новостей по теме новости, с предоставлением отчета о популярности темы, наглядной диаграммой.">
   <meta name="author" content="Солонцов Иван Александрович" />
   <meta name="copyright" lang="ru" content="Проект студента 4-го потока в Яндекс.Практикум" />
@@ -36,32 +36,57 @@
           </h2>
           <ul class="calendar__schedule">
           </ul>
-          <form class="ui form">
+          <form class="ui form calendar__form" name='bookInfo'>
             <div class="field">
-              <label>First Name</label>
-              <input type="text" name="first-name" placeholder="First Name">
+              <label>Ваше имя *</label>
+              <input class="form__input" type="text" name="name" placeholder="Дмитрий" required>
             </div>
             <div class="field">
-              <label>Last Name</label>
-              <input type="text" name="last-name" placeholder="Last Name">
+              <label>Название группы *</label>
+              <input class="form__input" type="text" name="bandName" placeholder="U2" required>
             </div>
             <div class="field">
-              <div class="ui checkbox">
-                <input type="checkbox" tabindex="0" class="hidden">
-                <label>I agree to the Terms and Conditions</label>
+              <label>Номер телефона *</label>
+              <input class="form__input" type="text" name="phoneNubmer" placeholder="79272223535" pattern="\S?\d\s?\(?\d{3}\)?-?\s?\d{3}-?\d{2}-?\d{2}$" required>
+              <span class="form__error">Телефон в формате: 71234567890</span>
+            </div>
+            <div class="inline field">
+              <div class="ui toggle checkbox">
+                <input type="checkbox" name='bassCheckbox'>
+                <label><i class="fas fa-guitar"></i> Бас в аренду (25р/час)</label>
               </div>
             </div>
-            <button class="ui button" type="submit">Submit</button>
-          </form>
-          <div class="calendar__submit">
-            <button class="calendar__submit-button" disabled>
-              Записаться
+            <div class="inline field">
+              <div class="ui toggle checkbox">
+                <input type="checkbox" name='keysCheckbox'>
+                <label><i class="fas fa-keyboard"></i> Клавиши в аренду (75р/час)</label>
+              </div>
+            </div>
+            <div class="inline field">
+              <div class="ui toggle checkbox">
+                <input type="checkbox" name='cymbalsCheckbox'>
+                <label><i class="fas fa-drum"></i> Тарелки (25р/час)</label>
+              </div>
+            </div>
+            <div class="inline field">
+              <label>Сколько микрофонов нужно для репетиции? <i class="fas fa-microphone"></i></label>
+              <select name="microphonesAmount">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="2">3</option>
+              </select>
+            </div>
+            <button class="calendar__submit-button" type="submit" name="submitButton">
+                Записаться
             </button>
-          </div>
-        </div>
+          </form>
       </div>
+    </div>
   </section>
 </main>
 </body>
 <script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js">
+
 </html>

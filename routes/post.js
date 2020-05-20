@@ -13,7 +13,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const postData = {
         hour: req.body.hour,
-        date: req.body.date
+        date: req.body.date,
+        name: req.body.name,
+        bandName: req.body.bandName,
+        phoneNumber: req.body.phoneNumber,
+        bass: req.body.bass,
+        keys: req.body.keys,
+        cymbals: req.body.cymbals,
+        microphones: req.body.microphones
     }
     const post = new Post(postData);
     await post.save();

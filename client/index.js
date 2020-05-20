@@ -21,10 +21,9 @@ class PostApi {
     }
 };
 
-PostApi.fetch().then(res => {
-    console.log(res, 'test');
-});
-
+// PostApi.fetch().then(res => {
+//     console.log(res, 'test');
+// });
 
 // PostApi.fetch().then(res => {
 //     res.forEach(elem => {
@@ -35,10 +34,10 @@ PostApi.fetch().then(res => {
 const datesContainer = document.querySelector('.calendar__dates-list');
 const timesContainer = document.querySelector('.calendar__schedule');
 const submitButton = document.querySelector('.calendar__submit-button');
-const allTimeItems = document.querySelectorAll('.calendar__schedule-item');
+const form = document.forms.bookInfo;
+
 
 let reservedTime = [];
-
 
 PostApi.fetch().then(res => {
     res.forEach(elem => {
@@ -123,13 +122,11 @@ class TimeList {
         `);
         _timeCard.addEventListener('click', () => {
             this.timeCardActivator(_timeCard);
-            const _timeCardsSelected = document.querySelectorAll('.calendar__schedule-item_active');
-            this.submitChecker(_timeCardsSelected);
+            formConstructor.validate();
         });
         return _timeCard;
     }
-    timeListRender(selectedDate) { 
-        submitButton.setAttribute('disabled', '');
+    timeListRender(selectedDate) {
         this.timeContainer.innerHTML = "";
         let _time = 9;
         for (let index = 0; index < 14; index++) {
@@ -150,25 +147,70 @@ class TimeList {
             card.classList.add('calendar__schedule-item_active');
         }
     }
-    submitChecker(cards) {
-        if(cards.length === 0) {
-            submitButton.setAttribute('disabled', '');
-        } else 
-            submitButton.removeAttribute('disabled');
-    }
 }
 
-class Submit {
-    constructor(submitButton) {
-        this.submitButton = submitButton;
-        this.submitButton.addEventListener('click', () => {
+class Form {
+    constructor(form, button) {
+        this.form = form;
+        this.submitButton = button;
+        this.inputs = {
+            name: this.form.name,
+            bandName: this.form.bandName,
+            phoneNumber: this.form.phoneNubmer,
+            bass: this.form.bassCheckbox,
+            keys: this.form.keysCheckbox,
+            cymbals: this.form.cymbalsCheckbox,
+            microphones: this.form.microphonesAmount
+        };
+        this.turnOff();
+        form.addEventListener('input', () => {
+            this.validate();
+        })
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            this.turnOff();
             this.send();
         });
+    }
+    validate() {
+        const _timeCardsSelected = document.querySelectorAll('.calendar__schedule-item_active');
+        if(this.inputs.name.validity.valid && this.inputs.bandName.validity.valid && this.inputs.phoneNumber.validity.valid) {
+            if(_timeCardsSelected.length != 0) {
+                this.turnOn();
+            } else 
+                this.turnOff();
+        } else
+            this.turnOff();
+    }
+    turnOn() {
+        this.submitButton.removeAttribute('disabled', '');
+    }
+    turnOff() {
+        this.submitButton.setAttribute('disabled', '');
     }
     send() {
         const _timeCardsSelected = document.querySelectorAll('.calendar__schedule-item_active');
         const _dateCardsSelected = document.querySelectorAll('.calendar__dates-list-item_active');
-        const selectedDate = _dateCardsSelected[0].name;
+        const $selectedDate = _dateCardsSelected[0].name;
+        const $name = this.inputs.name.value;
+        const $bandName = this.inputs.bandName.value;
+        const $phoneNumber = this.inputs.phoneNumber.value;
+        let $bass = this.inputs.bass;
+        if($bass.checked === true) {
+            $bass = true;
+        } else
+            $bass = false;
+        let $keys = this.inputs.keys;
+        if($keys.checked === true) {
+            $keys = true;
+        } else
+            $keys = false;
+        let $cymbals = this.inputs.cymbals;
+        if($cymbals.checked === true) {
+            $cymbals = true;
+        } else
+            $cymbals = false;
+        const $microphones = String(this.inputs.microphones.value);
 
         if(_timeCardsSelected.length === 0) {
             console.log('нет выбранного времени');
@@ -178,25 +220,32 @@ class Submit {
             _timeCardsSelected.forEach(elem => {
                 _hoursSelected.push(elem.name.substr(11, 2));
                 elem.setAttribute('disabled', '');
+                elem.classList.remove('calendar__schedule-item_active');
             });
             _hoursSelected.forEach(elem => {
                 const newReserve = {
                     hour: elem,
-                    date: selectedDate
+                    date: $selectedDate,
+                    name: $name,
+                    bandName: $bandName,
+                    phoneNumber: $phoneNumber,
+                    bass: $bass,
+                    keys: $keys,
+                    cymbals: $cymbals,
+                    microphones: $microphones
                 }
                 console.log(newReserve);
-                PostApi.sendTime(newReserve).then(res => {
-                    reservedTime.push(res);
-
-                })
+                // PostApi.sendTime(newReserve).then(res => {
+                //     reservedTime.push(res);
+                // });
             });
         }
     }
 }
 
+const formConstructor = new Form(form, submitButton);
 const datesListConstructor = new DatesList(datesContainer);
 const timeListConstructor = new TimeList(timesContainer, submitButton);
-const submitConstructor = new Submit(submitButton);
 
 
 // TODO
