@@ -21,9 +21,10 @@ body {
 .calendar__header {
     background-image: url(./images/bg.jpeg);
     background-size: cover;
+    animation: bg_animation 25s linear infinite;
     background-repeat: no-repeat;
     background-position: top center;
-    height: 100vh;
+    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,12 +50,17 @@ body {
     margin: 0 auto;
 }
 
+.calendar__dates-title {
+    padding: 30px 0px 0px 0px;
+    display: flex;
+    justify-content: center;
+}
+
 .calendar__firs-step {
     display: flex;
     font-family: Helvetica, sans-serif;
     color: #000;
     margin: 0;
-    padding: 30px 0px 0px 0px;
     font-size: 25px;
     font-weight: bold;
     align-self: center;
@@ -78,7 +84,7 @@ body {
     padding: 0;
     justify-content: center;
     max-width: 1400px;
-    margin: 35px auto;
+    margin: 25px auto;
 }
 
 .calendar__dates-list-item {
@@ -139,9 +145,14 @@ body {
     flex-direction: column;
     background-color: #f1f1f1;
     padding-bottom: 100px;
+    padding-top: 35px;
 }
 
 .calendar__schedule-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     animation: .4s linear fade;
     font-family: Helvetica, sans-serif;
     color: #fff;
@@ -150,7 +161,7 @@ body {
     align-self: center;
     width: 110%;
     text-align: left;
-    padding: 25px 0px 25px 76px;
+    padding: 25px 76px 25px 76px;
     background-color: #245ccc;
     border-radius: 25px;
     box-shadow: 0px 14px 20px #255ccc5e;
@@ -188,7 +199,6 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0px 10px 10px 10px;
-    margin-top: 50px;
     animation: .3s linear fade;
 }
 
@@ -321,4 +331,16 @@ body {
     font-size: 16px;
     margin: 19px 0px 0px 0px;
     line-height: 1.8rem;
+}
+
+.calendar__schedule-cancel-arrow {
+    text-decoration: none;
+    color: white;
+    transition: all .2s;
+}
+
+.calendar__schedule-cancel-arrow:hover {
+    outline: none;
+    opacity: .9;
+    cursor: pointer;
 }

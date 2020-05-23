@@ -34,6 +34,7 @@ class PostApi {
 const datesContainer = document.querySelector('.calendar__dates-list');
 const timesContainer = document.querySelector('.calendar__schedule');
 const submitButton = document.querySelector('.calendar__submit-button');
+const calendarDatesTitle = document.querySelector('.calendar__dates-title');
 const form = document.forms.bookInfo;
 
 
@@ -49,7 +50,8 @@ PostApi.fetch().then(res => {
 
 
 class DatesList {
-    constructor(datesContainer) {
+    constructor(datesContainer, calendarDatesTitle) {
+        this.calendarDatesTitle = calendarDatesTitle;
         this.datesContainer = datesContainer;
         this.renderDates();
     }
@@ -62,13 +64,24 @@ class DatesList {
             <p class="calendar__dates-day">${day}</p>
         `);
         card.addEventListener('click', () => {
-            const _currentDate = card.name
+            const _currentDate = card.name;
             timeListConstructor.timeListRender(_currentDate);
             this.cardActivator(card, _currentDate);
+            this.datesContainer.setAttribute('style', 'display: none');
+            this.calendarDatesTitle.removeChild(this._title);
+            this.calendarDatesTitle.setAttribute('style', 'display: none');
         });
         return card;
     }
     renderDates() {
+        this.datesContainer.innerHTML = "";
+        this.datesContainer.removeAttribute('style', '');
+        this.calendarDatesTitle.removeAttribute('style', '');
+        const _title = document.createElement('h2');
+        _title.setAttribute('class', 'calendar__first-step');
+        _title.insertAdjacentHTML('afterbegin', `Выберите дату репетиции.`);
+        this.calendarDatesTitle.appendChild(_title);
+        this._title = _title;
         const options = {
             weekday: 'long',
         };
@@ -86,7 +99,6 @@ class DatesList {
             if(element === dateListItem) {
                 if(element === dateListItem && dateListItem.classList.contains('calendar__dates-list-item_active')) {
                     element.classList.remove('calendar__dates-list-item_active');
-                    return false;
                 }
                 timeListConstructor.timeTitle(dateSelected);
                 dateListItem.classList.add('calendar__dates-list-item_active');
@@ -96,7 +108,6 @@ class DatesList {
         });
     }
 }
-
 
 class TimeList {
     constructor(timeContainer, submitButton) {
@@ -108,7 +119,15 @@ class TimeList {
         const calendarBottom = document.querySelector('.calendar__bottom');
         timeTitle.innerHTML = "";
         calendarBottom.removeAttribute('style');
-        timeTitle.insertAdjacentHTML('afterbegin', `${selectedDate}`);
+        timeTitle.insertAdjacentHTML('afterbegin', `${selectedDate}
+        <a class="calendar__schedule-cancel-arrow">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+        </a>`);
+        timeTitle.querySelector('.calendar__schedule-cancel-arrow')
+        .addEventListener('click', () => {
+           datesListConstructor.renderDates(); 
+           timeTitle.parentNode.parentNode.setAttribute('style', 'display: none');
+        });
     }
     createTimeCard(time, selectedDate, status) {
         const _timeCard =  document.createElement('button');
@@ -250,13 +269,10 @@ class Form {
 }
 
 const formConstructor = new Form(form, submitButton);
-const datesListConstructor = new DatesList(datesContainer);
+const datesListConstructor = new DatesList(datesContainer, calendarDatesTitle);
 const timeListConstructor = new TimeList(timesContainer, submitButton);
 
 
 
 // TODO
 // Реализовать спасибо за запись
-// спасибо за запись будет вылетать в попапе, обязательно закрыть все активное на странице, возможно удалить все, кроме хэдэра
-// админка
-// 
