@@ -16,7 +16,6 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding-bottom: 100px;
 }
 
 .calendar__header {
@@ -139,6 +138,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #f1f1f1;
+    padding-bottom: 100px;
 }
 
 .calendar__schedule-title {
@@ -299,4 +299,26 @@ body {
 
 .form__input:invalid:not(:placeholder-shown) + .form__error {
 	display: block;
+}
+
+
+.calendar__popup {
+    max-width: 500px;
+    margin: auto;
+    border-radius: 15px;
+    padding: 30px;
+    background-color: #f1f1f1;
+    color: #1f2127;
+    font-family: Helvetica, sans-serif;
+    box-shadow: 0px 2px 20px #000000c9;
+}
+
+.calendar__popup-title {
+    font-size: 36px;
+}
+
+.calendar__popup-text {
+    font-size: 16px;
+    margin: 19px 0px 0px 0px;
+    line-height: 1.8rem;
 }

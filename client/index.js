@@ -222,6 +222,11 @@ class Form {
                 elem.setAttribute('disabled', '');
                 elem.classList.remove('calendar__schedule-item_active');
             });
+            localStorage.clear();
+            localStorage.setItem('hoursSelected', _hoursSelected);
+            localStorage.setItem('name', $name);
+            localStorage.setItem('date', $selectedDate);
+
             _hoursSelected.forEach(elem => {
                 const newReserve = {
                     hour: elem,
@@ -235,9 +240,10 @@ class Form {
                     microphones: $microphones
                 }
                 console.log(newReserve);
-                // PostApi.sendTime(newReserve).then(res => {
-                //     reservedTime.push(res);
-                // });
+                PostApi.sendTime(newReserve).then(res => {
+                    reservedTime.push(res);
+                    window.location.href = '/thanks.html';
+                });
             });
         }
     }
@@ -248,7 +254,9 @@ const datesListConstructor = new DatesList(datesContainer);
 const timeListConstructor = new TimeList(timesContainer, submitButton);
 
 
+
 // TODO
 // Реализовать спасибо за запись
-// Реализовать выбор количества часов
-// Реализовать поля ввода названия группы, номера телефона
+// спасибо за запись будет вылетать в попапе, обязательно закрыть все активное на странице, возможно удалить все, кроме хэдэра
+// админка
+// 
