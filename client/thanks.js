@@ -24,7 +24,7 @@ class Popup {
         let _hourPrice = 175;
         let _bassPrice = 0;
         if(this.bass === 'true') {
-            _bassPrice = 25;
+            _bassPrice = 50;
         }
         let _keysPrice = 0;
         if(this.keys === 'true') {
