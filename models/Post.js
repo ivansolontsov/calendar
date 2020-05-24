@@ -15,8 +15,7 @@ const dateSchema = new Schema({
         required: true
     },
     bandName: {
-        type: String,
-        required: true
+        type: String
     },
     phoneNumber: {
         type: Number,

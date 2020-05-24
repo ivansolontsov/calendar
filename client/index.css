@@ -11,7 +11,9 @@ body {
     margin: 0;
     background-color: #f1f1f1;
 }
-
+.bold {
+    font-weight: bold;
+}
 .calendar {
     margin: 0 auto;
     display: flex;
@@ -28,6 +30,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.calendar__header-thanks {
+    height: 100vh !important;
 }
 
 .calendar__title {
@@ -56,12 +62,12 @@ body {
     justify-content: center;
 }
 
-.calendar__firs-step {
+.calendar__first-step {
     display: flex;
     font-family: Helvetica, sans-serif;
     color: #000;
     margin: 0;
-    font-size: 25px;
+    font-size: 36px;
     font-weight: bold;
     align-self: center;
 }
@@ -343,4 +349,13 @@ body {
     outline: none;
     opacity: .9;
     cursor: pointer;
+}
+
+.calendar__popup-price {
+    font-family: Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    font-size: 45px;
+    margin: 0;
+    padding: 10px;
 }

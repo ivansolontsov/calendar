@@ -193,7 +193,7 @@ class Form {
     }
     validate() {
         const _timeCardsSelected = document.querySelectorAll('.calendar__schedule-item_active');
-        if(this.inputs.name.validity.valid && this.inputs.bandName.validity.valid && this.inputs.phoneNumber.validity.valid) {
+        if(this.inputs.name.validity.valid && this.inputs.phoneNumber.validity.valid) {
             if(_timeCardsSelected.length != 0) {
                 this.turnOn();
             } else 
@@ -212,7 +212,7 @@ class Form {
         const _dateCardsSelected = document.querySelectorAll('.calendar__dates-list-item_active');
         const $selectedDate = _dateCardsSelected[0].name;
         const $name = this.inputs.name.value;
-        const $bandName = this.inputs.bandName.value;
+        let $bandName = this.inputs.bandName.value;
         const $phoneNumber = this.inputs.phoneNumber.value;
         let $bass = this.inputs.bass;
         if($bass.checked === true) {
@@ -245,6 +245,9 @@ class Form {
             localStorage.setItem('hoursSelected', _hoursSelected);
             localStorage.setItem('name', $name);
             localStorage.setItem('date', $selectedDate);
+            localStorage.setItem('bass', $bass);
+            localStorage.setItem('keys', $keys);
+            localStorage.setItem('cymbals', $cymbals);
 
             _hoursSelected.forEach(elem => {
                 const newReserve = {
@@ -262,7 +265,7 @@ class Form {
                 PostApi.sendTime(newReserve).then(res => {
                     reservedTime.push(res);
                     window.location.href = '/thanks.html';
-                });
+                }).catch(err => console.log(err));
             });
         }
     }
@@ -275,4 +278,3 @@ const timeListConstructor = new TimeList(timesContainer, submitButton);
 
 
 // TODO
-// Реализовать спасибо за запись
