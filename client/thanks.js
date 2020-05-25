@@ -49,8 +49,8 @@ class Popup {
         <p class="calendar__popup-text">По любым вопросам можно обратиться к нам в чате в ВКонтакте или по телефону +79173080937.</p>
         <h2 class="calendar__popup-price">${this.price()}</h2>
         <div class="calendar__popup-icons">
-          <i class="fab fa-vk"></i> 
-          <i class="fab fa-whatsapp"></i>
+          <a href="https://vk.com/chapsstudio" target=_blank><i class="fab fa-vk"></i></a> 
+          <a href="https://vk.com/chapsstudio" target=_blank><i class="fab fa-whatsapp"></i></a>
         </div>`);
         return popup;
     }

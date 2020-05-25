@@ -18,7 +18,7 @@ const dateSchema = new Schema({
         type: String
     },
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     bass: {

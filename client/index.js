@@ -188,7 +188,11 @@ class Form {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             this.turnOff();
-            this.send();
+            $('.ui.basic.modal').modal({
+                onDeny : () => this.turnOn(),
+                onApprove : () => this.send()
+              }).modal('show');
+            // this.send();
         });
     }
     validate() {

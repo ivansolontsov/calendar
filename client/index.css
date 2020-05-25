@@ -319,15 +319,28 @@ body {
 
 
 .calendar__popup {
+    display: flex;
+    flex-direction: column;
+    position: relative;
     max-width: 500px;
     margin: auto;
     border-radius: 15px;
-    padding: 30px;
+    padding: 30px 30px 89px 30px;
     background-color: #f1f1f1;
     color: #1f2127;
     font-family: Helvetica, sans-serif;
     box-shadow: 0px 2px 20px #000000c9;
+    overflow: hidden;
 }
+
+.calendar__popup a {
+    color: black;
+}
+
+.calendar__popup a:hover {
+    opacity: .5;
+}
+
 
 .calendar__popup-title {
     font-size: 36px;
@@ -358,4 +371,17 @@ body {
     font-size: 45px;
     margin: 0;
     padding: 10px;
+}
+
+.calendar__popup-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 50px;
+    background-color: #fbbd08;
+    position: absolute;
+    bottom: 0;
+    align-self: center;
+    width: 100%;
+    padding: 15px 0px 15px 0px;
 }
