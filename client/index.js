@@ -48,7 +48,6 @@ PostApi.fetch().then(res => {
     console.log(err);
 });
 
-
 class DatesList {
     constructor(datesContainer, calendarDatesTitle) {
         this.calendarDatesTitle = calendarDatesTitle;
