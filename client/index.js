@@ -21,9 +21,9 @@ class PostApi {
     }
 };
 
-// PostApi.fetch().then(res => {
-//     console.log(res, 'test');
-// });
+PostApi.fetch().then(res => {
+    console.log(res, 'test');
+});
 
 // PostApi.fetch().then(res => {
 //     res.forEach(elem => {

@@ -21,13 +21,17 @@ class PostApi {
     }
 };
 
+
+let reservedTime = PostApi.fetch().then(res => {
+    return res;
+});
+
 const dayWrapper = document.querySelector('.admin__calendar-days-wrapper');
 
 class Schedule {
-    constructor() {
+    constructor(reservedTime) {
+        this.reservedTime = reservedTime;
         this.renderDays();
-        let date = '03.06.2020';
-        this.currentDayRepetitions(date);
     }
     createDay(date) {
         const day = document.createElement('div');
@@ -37,48 +41,68 @@ class Schedule {
         <ul class="calendar-day__times">
         <li class="calendar-day__times-item">Записей нет</li>
         </ul>`);
-        // для реализации нужен массив с данными на запрошенный день, функция currentDayRepetitions
-        // if(this.currentDayRepetitions) {
-        //     let timesWrapper = day.querySelector('.calendar-day__times');
-        //     timesWrapper.innerHTML = '';
-        //     timesWrapper.appendChild(this.createTime());
-        // }
-        // this.currentDayRepetitions(date);
+
+        this.getData(date).then(res => {
+            let timesWrapper = day.querySelector('.calendar-day__times');
+            if(res.length > 0) {
+                timesWrapper.innerHTML = '';
+                this.summator(res);
+                res.forEach(element => {
+                    // let hours = '';
+                    // реализовать объединения часов.
+                    timesWrapper.appendChild(this.createTime(element.hour, 
+                        element.bandName, 
+                        element.name, 
+                        element.phoneNumber, 
+                        element.bass, 
+                        element.microphones, 
+                        element.cymbals, 
+                        element.keys));
+                });
+            }
+        })
         return day;
     }
+    summator(res) {
+        let sortedArray = [];
+        res.forEach((element, index, array) => {
+            // console.log(element, 'TEST');
+            let i = 1;
+            if(index === 0) {
+                i = 0;
+            }
+            if(array[index].phoneNumber === array[index - i].phoneNumber || array[index].name === array[index - i].name) {
+                console.log(`Есть совпадения, ${element.date} ${element.name} ${element.hour} ${element.bandName}`);
+            }
+        });
+        return sortedArray;
+    }
     getData(date) {
-        PostApi.fetch().then(res => {
+        return this.reservedTime.then(res => {
+            let currentDayReserves = []
             res.forEach(element => {
                 if(element.date === date) {
-                    console.log(element);
+                    currentDayReserves.push(element);
                 }
             });
-        }).catch((err) => {
-            console.log(err);
-        });
+            return currentDayReserves;
+        })
     }
-    currentDayRepetitions(date) {
-        // функция выдает все репетиции на запрошенную дату.
-        let repetitionsAtDate = [];
-        this.getData(date);
-        return repetitionsAtDate;
-    }
-    // createTime(date, hours, bandName, name, telephone, bass, microphones, cymbals, keys) {
-    createTime() {
+    createTime(hours, bandName, name, telephone, bass, microphones, cymbals, keys) {
         const time = document.createElement('li');
         time.classList.add('calendar-day__times-item');
         time.insertAdjacentHTML('afterbegin', `
         <button class="times-item__delete">
             <i class="fas fa-times"></i>
         </button>
-        <h3 class="calendar-day__times-title">10:00 - 12:00</h3>
-        <p class="calendar-day__times-info">Группа: metallica</p>
-        <p class="calendar-day__times-info">Имя: иван</p>
-        <p class="calendar-day__times-info">Телефон: 79173080937</p>
-        <p class="calendar-day__times-info">Бас: да</p>
-        <p class="calendar-day__times-info">Микрофонов: 3</p>
-        <p class="calendar-day__times-info">Тарелки: да</p>
-        <p class="calendar-day__times-info">Клавиши: нет</p>
+        <h3 class="calendar-day__times-title">${hours}</h3>
+        <p class="calendar-day__times-info">Группа: ${bandName}</p>
+        <p class="calendar-day__times-info">Имя: ${name}</p>
+        <p class="calendar-day__times-info">Телефон: ${telephone}</p>
+        <p class="calendar-day__times-info">Бас: ${bass}</p>
+        <p class="calendar-day__times-info">Микрофонов: ${microphones}</p>
+        <p class="calendar-day__times-info">Тарелки: ${cymbals}</p>
+        <p class="calendar-day__times-info">Клавиши: ${keys}</p>
         <div class="calendar-day__times-menu">
             <a href="#" class="calendar-day__times-menu-item"><i class="fas fa-phone"></i></a>
         </div>
@@ -100,4 +124,4 @@ class Schedule {
 
 };
 
-const scheduleConstructor = new Schedule();
+const scheduleConstructor = new Schedule(reservedTime);
